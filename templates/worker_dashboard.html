@@ -26,7 +26,7 @@
                 <td>{{ job['description'] }}</td>
                 <td>{{ job['wage'] }}</td>
                 <td>{{ job['location'] }}</td>
-                <td><button>Apply</button></td>
+                <td><a href="{{ url_for('job_apply', job_id=job['id']) }}"><button>Apply</button></a></td>
             </tr>
             {% endfor %}
         </table>
