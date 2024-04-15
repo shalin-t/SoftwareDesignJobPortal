@@ -9,9 +9,9 @@ employers = {'employer1': 'password1', 'employer2': 'password2'}
 
 # Mock job listings
 job_listings = [
-    {'title': 'Job 1', 'description': 'Description for Job 1', 'wage': '$20/hour', 'location': 'New York'},
-    {'title': 'Job 2', 'description': 'Description for Job 2', 'wage': '$25/hour', 'location': 'Los Angeles'},
-    {'title': 'Job 3', 'description': 'Description for Job 3', 'wage': '$18/hour', 'location': 'Chicago'}
+    {'id': 1, 'title': 'Job 1', 'description': 'Description for Job 1', 'wage': '$20/hour', 'location': 'New York'},
+    {'id': 2, 'title': 'Job 2', 'description': 'Description for Job 2', 'wage': '$25/hour', 'location': 'Los Angeles'},
+    {'id': 3, 'title': 'Job 3', 'description': 'Description for Job 3', 'wage': '$18/hour', 'location': 'Chicago'}
 ]
 
 @app.route('/')
@@ -52,6 +52,18 @@ def employer_dashboard():
     if 'username' in session:
         return 'Employer Dashboard<br><a href="/logout">Logout</a>'
     return redirect(url_for('select_user_type'))
+
+@app.route('/job/<int:job_id>/apply', methods=['GET', 'POST'])
+def job_apply(job_id):
+    job = next((job for job in job_listings if job['id'] == job_id), None)
+    if job is None:
+        return 'Job not found'
+    
+    if request.method == 'POST':
+        # Handle job application form submission here
+        return 'Job application submitted successfully'
+    
+    return render_template('job_apply.html', job=job)
 
 @app.route('/logout')
 def logout():
