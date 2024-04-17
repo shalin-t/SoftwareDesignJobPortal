@@ -6,7 +6,8 @@
 </head>
 <body>
     <div class="sidebar">
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('app_routes.dashboard') }}">Worker Dashboard</a>
+        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
         <a href="#profile">Profile</a>
         <a href="#pending">Pending Applications</a>
     </div>
@@ -17,7 +18,7 @@
         <p>Location: {{ job['location'] }}</p>
         
         <h3>Personal Information</h3>
-        <form method="post">
+        <form method="post" action="{{ url_for('app_routes.submit_job_apply', job_id=job['id']) }}">
             <label for="name">Name:</label><br>
             <input type="text" id="name" name="name" required><br>
             <label for="email">Email:</label><br>

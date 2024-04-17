@@ -61,3 +61,43 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+/* Center container */
+.container {
+    text-align: center;
+    margin-top: 20vh;
+}
+
+/* Center header */
+.center {
+    display: block;
+    margin-bottom: 20px;
+    margin: auto;
+}
+/* Center input fields */
+.center div {
+    margin-bottom: 10px;
+}
+
+/* Button styles */
+.button {
+    display: inline-block;
+    padding: 20px 40px;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.button:hover {
+    background-color: #45a049;
+}
+/* Center form */
+form.center {
+    display: inline-block;
+}

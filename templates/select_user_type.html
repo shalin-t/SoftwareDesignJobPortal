@@ -3,11 +3,14 @@
 <head>
     <title>Select User Type</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-
 </head>
 <body>
-    <h2>Select User Type</h2>
-    <a href="{{ url_for('login', type='worker') }}"><button>Worker</button></a>
-    <a href="{{ url_for('login', type='employer') }}"><button>Employer</button></a>
+    <div class="container">
+        <h2 class="center">Select User Type</h2>
+        <div class="center">
+            <a class="button" href="{{ url_for('app_routes.login', type='worker') }}">Worker</a>
+            <a class="button" href="{{ url_for('app_routes.login', type='employer') }}">Employer</a>
+        </div>
+    </div>
 </body>
 </html>
