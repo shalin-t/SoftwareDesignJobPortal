@@ -1,26 +1,57 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
-from app import workers, employers, job_listings, job_applications
+#from app import workers, employers, job_listings, job_applications
+import sqlite3
 
 app_routes = Blueprint("app_routes", __name__)
+
+# Function to establish connection to the SQLite database
+def get_db_connection():
+    conn = sqlite3.connect('app.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
 @app_routes.route('/')
 def select_user_type():
     return render_template('select_user_type.html')
 
+@app_routes.route('/create_account', methods=['GET', 'POST'])
+def create_account():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user_type = request.form['user_type']  # Assuming you have a user type field in your registration form
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("INSERT INTO users (username, password, user_type) VALUES (?, ?, ?)", (username, password, user_type))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('app_routes.select_user_type'))  # Redirect to select_user_type route
+        except sqlite3.IntegrityError:
+            error_message = "Username already exists. Please choose a different username."
+            return render_template('create_account.html', error_message=error_message)
+    return render_template('create_account.html')
+
+
 @app_routes.route('/login', methods=['GET', 'POST'])
 def login():
     user_type = request.args.get('type')
     if user_type == 'worker':
-        users = workers
+        table = 'workers'
     elif user_type == 'employer':
-        users = employers
+        table = 'employers'
     else:
-        return 'Invalid user type'
+        return 'Invalid user type123'
 
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username in users and users[username] == password:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM users WHERE username = ? AND password = ? AND user_type = ?", (username, password, user_type))
+        user = cursor.fetchone()
+        conn.close()
+        if user:
             session['username'] = username
             if user_type == 'worker':
                 return redirect(url_for('app_routes.dashboard'))
@@ -30,6 +61,8 @@ def login():
             return render_template('login.html', error_message="Invalid username/password")
     return render_template('login.html', user_type=user_type)
 
+
+'''
 @app_routes.route('/worker_dashboard')
 def dashboard():
     if 'username' in session:
@@ -85,3 +118,5 @@ def submit_job_apply(job_id):
 def logout():
     session.pop('username', None)
     return redirect(url_for('app_routes.select_user_type'))
+
+    '''
