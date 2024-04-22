@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Create Account</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h2 class="center">QuickJobs Login</h2>
+        <h2 class="center">Create Account</h2>
         {% if error_message %}
-            <p class="center">{{ error_message }}</p>
+            <p class="center error">{{ error_message }}</p>
         {% endif %}
         <form class="center" method="post">
             <div class="center">
@@ -16,11 +16,16 @@
                 <input type="text" id="username" name="username" required><br>
                 <label for="password">Password:</label><br>
                 <input type="password" id="password" name="password" required><br>
-                <input type="submit" class="button" value="Login">
+                <label for="user_type">User Type:</label><br>
+                <select id="user_type" name="user_type" required>
+                    <option value="worker">Worker</option>
+                    <option value="employer">Employer</option>
+                </select><br>
+                <input type="submit" class="button" value="Create Account">
             </div>
         </form>
         <div class="center">
-            <p>Don't have an account? <a href="{{ url_for('app_routes.create_account') }}">Create Account</a></p>
+            <p>Already have an account? <a href="{{ url_for('app_routes.select_user_type') }}">Login</a></p>
         </div>
     </div>
 </body>

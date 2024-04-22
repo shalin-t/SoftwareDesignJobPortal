@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="A:/david/SEM/QuickJobs-db_connection/app.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1152"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">INSERT INTO job_listings (id, title, description, wage, location) VALUES 
+(1, 'Dog Walker', 'Walk the dogs. Pick up droppings. Get money.', '$20/hour', 'New York City'),
+(2, 'Lawn Mower', 'Mow the lawn, lemonade complimentary.', '$25/hour', 'Los Angeles'),
+(3, 'Software Engineer', 'Fix Bugs', '$18/hour', 'Chicago'),
+(4, 'Chef', 'Prepare and cook food, maintain clean work space.', '$16/hour', 'Boston'),
+(5, 'Private Investigator', 'Catch the bad guys.', '$27/hour', 'Bridgeport'),
+(6, 'University Professor', 'Lecture and give tests', '$31/hour', 'Providence');
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
