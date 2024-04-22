@@ -37,33 +37,62 @@ body {
     color: #d45252;
 }
 
-/* Content area styles */
+/* Aligning content with left margin and centering */
 .content {
-    margin-left: 250px;
+    margin-left: 250px; /* Space on the left for sidebar or navigation */
     padding: 20px;
-    margin-right: auto; /* Center content */
     max-width: 800px; /* Limit content width */
+    margin-right: auto; /* Center content */
 }
-/*create job html page*/
-.create_job {
+
+/* Aligning input fields in a form */
+form {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Viewport height */
+    flex-direction: column; /* Align elements vertically */
+    gap: 10px; /* Uniform spacing between elements */
+}
+
+/* Label styling for visibility */
+label {
+    font-weight: bold; /* Bold text for emphasis */
+    text-align: left; /* Ensure labels are left-aligned */
+}
+
+/* Input field styling */
+input {
+    padding: 10px; /* Padding for better spacing */
+    border: 1px solid #ccc; /* Border for clarity */
+    border-radius: 5px; /* Rounded corners */
+    text-align: left; /* Left-align text in input boxes */
+}
+
+/* Aligning the form to a specific container */
+.form-container {
+    display: flex;
+    justify-content: center; /* Center form horizontally */
     padding: 20px;
-    background-color: #f5f5f5; /* Light gray background */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
-/* Center the input fields */
-.form input,
-.form textarea {
+
+/* Styling for the submit button */
+input[type="submit"] {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    width: 100%; /* Input fields take up the full width of the form */
-    text-align: center; /* Center-aligns the text in the input field */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
 }
+
+/* Hover effect for the submit button */
+input[type="submit"]:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+
+
 /* Table styles */
 table {
     width: 100%;
@@ -115,8 +144,4 @@ th {
 /* Button hover effect */
 .button:hover {
     background-color: #45a049;
-}
-/* Center form */
-form.center {
-    display: inline-block;
 }
