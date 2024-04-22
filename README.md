@@ -4,4 +4,6 @@ Software Design Methods Project
 Templates folder consists of the html frontend, static folder contains the css and images used on the website. 
 Routing logic is encapsulated in the routes file, database modeling is done in the app script. 
 
+Database file is 'app.db' , currently use DB Browser to manually view and edit table entries. 
+
 Run app.py, select the URL to access and debug the hosted web application. 
