@@ -54,18 +54,21 @@ def login():
         if user:
             session['username'] = username
             if user_type == 'worker':
-                return redirect(url_for('app_routes.dashboard'))
+                return redirect(url_for('app_routes.worker_dashboard'))
             elif user_type == 'employer':
                 return redirect(url_for('app_routes.employer_dashboard'))
         else:
             return render_template('login.html', error_message="Invalid username/password")
     return render_template('login.html', user_type=user_type)
 
-
-'''
 @app_routes.route('/worker_dashboard')
-def dashboard():
+def worker_dashboard():
     if 'username' in session:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM job_listings")
+        job_listings = cursor.fetchall()
+        conn.close()
         return render_template('worker_dashboard.html', job_listings=job_listings)
     return redirect(url_for('app_routes.select_user_type'))
 
@@ -79,7 +82,17 @@ def employer_dashboard():
 def pending_applications():
     if 'username' in session:
         worker = session['username']
-        pending_jobs = [job for job in job_listings if any(app['worker'] == worker and app['job_id'] == job['id'] for app in job_applications)]
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM job_applications WHERE worker_id = ?", (worker,))
+        job_applications = cursor.fetchall()
+        pending_jobs = []
+        for app in job_applications:
+            cursor.execute("SELECT * FROM job_listings WHERE id = ?", (app['job_id'],))
+            job = cursor.fetchone()
+            if job:
+                pending_jobs.append(job)
+        conn.close()
         return render_template('pending_applications.html', pending_jobs=pending_jobs)
     return redirect(url_for('app_routes.select_user_type'))
 
@@ -88,7 +101,12 @@ def job_apply(job_id):
     if request.method == 'POST':
         return redirect(url_for('app_routes.submit_job_apply', job_id=job_id))
     
-    job = next((job for job in job_listings if job['id'] == job_id), None)
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM job_listings WHERE id = ?", (job_id,))
+    job = cursor.fetchone()
+    conn.close()
+
     if job is None:
         return 'Job not found'
     
@@ -100,23 +118,32 @@ def submit_job_apply(job_id):
         return redirect(url_for('app_routes.select_user_type'))
     
     worker = session['username']
-    
-    # Check if the job ID exists in the job listings
-    job = next((job for job in job_listings if job['id'] == job_id), None)
+
+    #Checks for job ID to exist in job listings table
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM job_listings WHERE id = ?", (job_id,))
+    job = cursor.fetchone()
+
     if job is None:
-        return 'Job not found'
-
-    # Check if the worker has already applied for this job
-    if any(app['worker'] == worker and app['job_id'] == job_id for app in job_applications):
-        return 'You have already applied for this job'
-
-    # Add the job application to the list
-    job_applications.append({'worker': worker, 'job_id': job_id})
-    return redirect(url_for('app_routes.dashboard'))
+        conn.close()
+        return 'Job not found. Error.'
+    
+    #Check if worker has already applied to job
+    cursor.execute("SELECT * FROM job_applications WHERE worker_id = ? AND job_id = ?", (worker, job_id))
+    existing_application = cursor.fetchone()
+    if existing_application:
+        conn.close()
+        return "You have already applied for this job."
+    
+    #After two checks passes for the user, add job to application list
+    cursor.execute("INSERT INTO job_applications (worker_id, job_id) VALUES (?, ?)", (worker, job_id))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('app_routes.worker_dashboard'))
 
 @app_routes.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect(url_for('app_routes.select_user_type'))
 
-    '''

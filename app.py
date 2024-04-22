@@ -9,7 +9,6 @@ app.secret_key = "secretkey"
 # Create a connection to the SQLite database
 conn = sqlite3.connect('app.db')
 cursor = conn.cursor()
-
 # Create users table
 cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY,
@@ -53,7 +52,6 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS job_applications (
 
 # Commit the changes and close the connection
 conn.commit()
-conn.close()
 '''
 # Mock user database
 workers = {'worker1': 'password1', 'worker2': 'password2', '1':'1'}
