@@ -44,7 +44,26 @@ body {
     margin-right: auto; /* Center content */
     max-width: 800px; /* Limit content width */
 }
-
+/*create job html page*/
+.create_job {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Viewport height */
+    padding: 20px;
+    background-color: #f5f5f5; /* Light gray background */
+}
+/* Center the input fields */
+.form input,
+.form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%; /* Input fields take up the full width of the form */
+    text-align: center; /* Center-aligns the text in the input field */
+}
 /* Table styles */
 table {
     width: 100%;

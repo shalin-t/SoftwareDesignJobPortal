@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
+        <a href="#profile">Profile</a>
+
+    </div>
+    <div class="content">
+
+        <h2>Employer Dashboard</h2>
+        <p>Welcome, {{username}}!</p>
+        <form action="{{ url_for('app_routes.create_job_listing') }}" method="get">
+            <button type="submit">Create Job Listing</button>
+        </form>
+
+
+    </div>
+</body>
