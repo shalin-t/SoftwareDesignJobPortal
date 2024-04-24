@@ -10,6 +10,12 @@ body {
     background-color: #f4f4f4;
 }
 
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: solid;
+    font-size: 36px;
+}
+
 /* Sidebar styles */
 .sidebar {
     height: 100%;

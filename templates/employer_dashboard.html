@@ -16,7 +16,34 @@
         <p>Welcome, {{username}}!</p>
 
         <a class="button" href="{{ url_for('app_routes.create_job_listing') }}">Create Job Listing</a>
+        <h3>Your Job Listings</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Wage</th>
+                    <th>Location</th>
+                    <th>Pending Applicants</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in job_listings %}
+                <tr>
+                    <td>{{ job['title'] }}</td>
+                    <td>{{ job['description'] }}</td>
+                    <td>{{ job['wage'] }}</td>
+                    <td>{{ job['location'] }}</td>
+                    <td>
+                        <a href="{{ url_for('app_routes.pending_applicants', job_id=job['id']) }}">
+                            View Applicants
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
 
     </div>
 </body>
+</html>

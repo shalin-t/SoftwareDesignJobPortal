@@ -72,13 +72,30 @@ def worker_dashboard():
         return render_template('worker_dashboard.html', job_listings=job_listings)
     return redirect(url_for('app_routes.select_user_type'))
 
+#new dashboard logic
+@app_routes.route('/employer_dashboard')
+def employer_dashboard():
+    if 'username' not in session:
+        return redirect(url_for('app_routes.select_user_type'))
+    username = session['username']
+
+    #fetch job listings
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM job_listings WHERE created_by = ?", (username,))
+    job_listings = cursor.fetchall()
+    conn.close()
+
+    return render_template('employer_dashboard.html', username=username, job_listings=job_listings)
+
+'''
 @app_routes.route('/employer_dashboard')
 def employer_dashboard():
     if 'username' not in session:
         return redirect(url_for('app_routes.select_user_type'))
 
     username = session['username']
-    return render_template('employer_dashboard.html', username=username)
+    return render_template('employer_dashboard.html', username=username)'''
 
 @app_routes.route('/create_job_listing', methods=['GET', 'POST'])
 def create_job_listing():
@@ -90,13 +107,14 @@ def create_job_listing():
         description = request.form['description']
         wage = request.form['wage']
         location = request.form['location']
+        created_by = session['username'] #record logged-in user key
 
         #insert record into database
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO job_listings (title, description, wage, location) VALUES (?, ?, ?, ?)",
-            (title, description, wage, location)
+            "INSERT INTO job_listings (title, description, wage, location, created_by) VALUES (?, ?, ?, ?, ?)",
+            (title, description, wage, location, created_by)
         )
         conn.commit()
         conn.close()
@@ -164,11 +182,92 @@ def submit_job_apply(job_id):
         return "You have already applied for this job."
     
     #After two checks passes for the user, add job to application list
-    cursor.execute("INSERT INTO job_applications (worker_id, job_id) VALUES (?, ?)", (worker, job_id))
+    #additional input fields being recorded
+    name = request.form['name']
+    email = request.form['email']
+
+
+    cursor.execute(
+        "INSERT INTO job_applications (worker_id, job_id, name, email) VALUES (?, ?, ?, ?)",
+        (worker, job_id, name, email)
+    )
     conn.commit()
     conn.close()
     return redirect(url_for('app_routes.worker_dashboard'))
 
+@app_routes.route('/employer_dashboard/pending_applicants/<int:job_id>')
+def pending_applicants(job_id):
+    # Check if user is logged in
+    if 'username' not in session:
+        return redirect(url_for('app_routes.select_user_type'))
+
+    username = session['username']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Verify that the job exists and is owned by the logged-in employer
+    cursor.execute("SELECT * FROM job_listings WHERE id = ? AND created_by = ?", (job_id, username))
+    job = cursor.fetchone()
+
+    if not job:
+        conn.close()
+        return "Job not found or you do not have permission to view this job."
+
+    # Retrieve pending applicants for this job
+    cursor.execute(
+        """
+        SELECT ua.worker_id AS userid, ua.name, ua.email 
+        FROM job_applications AS ua 
+        WHERE ua.job_id = ?
+        """,
+        (job_id,)
+    )
+    pending_applicants = cursor.fetchall()
+    conn.close()
+
+    return render_template(
+        'pending_applicants.html',
+        job=job,
+        pending_applicants=pending_applicants
+    )
+
+'''
+@app_routes.route('/employer_dashboard/pending_applicants/<int:job_id>')
+def pending_applicants(job_id):
+    # Check if user is logged in
+    if 'username' not in session:
+        return redirect(url_for('app_routes.select_user_type'))
+
+    username = session['username']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Verify that the job exists and is owned by the logged-in employer
+    cursor.execute("SELECT * FROM job_listings WHERE id = ? AND employer_username = ?", (job_id, username))
+    job = cursor.fetchone()
+
+    if not job:
+        conn.close()
+        return "Job not found or you do not have permission to view this job."
+
+    # Retrieve pending applicants for this job
+    cursor.execute(
+        """
+        SELECT ua.worker_id AS userid, ua.name, ua.email 
+        FROM job_applications AS ua 
+        WHERE ua.job_id = ?
+        """,
+        (job_id,)
+    )
+    pending_applicants = cursor.fetchall()
+    conn.close()
+
+    return render_template(
+        'pending_applicants.html',
+        job=job,
+        pending_applicants=pending_applicants
+    )
+'''
 @app_routes.route('/logout')
 def logout():
     session.pop('username', None)
