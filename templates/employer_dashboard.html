@@ -14,9 +14,8 @@
 
         <h2>Employer Dashboard</h2>
         <p>Welcome, {{username}}!</p>
-        <form action="{{ url_for('app_routes.create_job_listing') }}" method="get">
-            <button type="submit">Create Job Listing</button>
-        </form>
+
+        <a class="button" href="{{ url_for('app_routes.create_job_listing') }}">Create Job Listing</a>
 
 
     </div>
