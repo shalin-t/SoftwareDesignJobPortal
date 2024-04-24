@@ -17,30 +17,14 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                     user_type TEXT
                 )''')
 
-# Create job listings table
 cursor.execute('''CREATE TABLE IF NOT EXISTS job_listings (
                     id INTEGER PRIMARY KEY,
                     title TEXT,
                     description TEXT,
                     wage TEXT,
-                    location TEXT
+                    location TEXT,
+                    created_by TEXT -- New column to identify the employer who created the job listing
                 )''')
-
-# Create job applications table
-cursor.execute('''CREATE TABLE IF NOT EXISTS job_applications (
-                    id INTEGER PRIMARY KEY,
-                    worker_id INTEGER,
-                    job_id INTEGER,
-                    FOREIGN KEY(worker_id) REFERENCES users(id),
-                    FOREIGN KEY(job_id) REFERENCES job_listings(id)
-                )''')
-cursor.execute('''CREATE TABLE IF NOT EXISTS job_listings (
-                        id INTEGER PRIMARY KEY,
-                        title TEXT,
-                        description TEXT,
-                        wage TEXT,
-                        location TEXT
-                    )''')
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS job_applications (
                         id INTEGER PRIMARY KEY,
