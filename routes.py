@@ -74,9 +74,36 @@ def worker_dashboard():
 
 @app_routes.route('/employer_dashboard')
 def employer_dashboard():
-    if 'username' in session:
-        return 'Employer Dashboard<br><a href="/logout">Logout</a>'
-    return redirect(url_for('app_routes.select_user_type'))
+    if 'username' not in session:
+        return redirect(url_for('app_routes.select_user_type'))
+
+    username = session['username']
+    return render_template('employer_dashboard.html', username=username)
+
+@app_routes.route('/create_job_listing', methods=['GET', 'POST'])
+def create_job_listing():
+    if 'username' not in session:
+        return redirect(url_for('app_routes.select_user_type'))
+    if request.method == 'POST':
+        #get form data to create job listing record
+        title = request.form['title']
+        description = request.form['description']
+        wage = request.form['wage']
+        location = request.form['location']
+
+        #insert record into database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO job_listings (title, description, wage, location) VALUES (?, ?, ?, ?)",
+            (title, description, wage, location)
+        )
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('app_routes.employer_dashboard'))
+    return render_template('create_job_listing.html')
+
 
 @app_routes.route('/pending_applications')
 def pending_applications():

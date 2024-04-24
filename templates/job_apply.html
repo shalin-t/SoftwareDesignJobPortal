@@ -6,10 +6,10 @@
 </head>
 <body>
     <div class="sidebar">
-        <a href="{{ url_for('app_routes.worker_dashboard') }}">Worker Dashboard</a>
         <a href="{{ url_for('app_routes.logout') }}">Logout</a>
         <a href="#profile">Profile</a>
-        <a href="#pending">Pending Applications</a>
+        <a href="{{ url_for('app_routes.pending_applications') }}">Pending Applications</a>
+        <a href="{{ url_for('app_routes.worker_dashboard') }}">Dashboard</a>
     </div>
     <div class="content">
         <h2>Apply for {{ job['title'] }}</h2>
