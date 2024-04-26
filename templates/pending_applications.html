@@ -1,33 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Pending Applications</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
-        <a href="#profile">Profile</a>
-        <a href="{{ url_for('app_routes.employer_dashboard') }}">Dashboard</a>
-    </div>
-    <div class="content">
+{% extends 'base.html' %} 
+{% block title %}Pending Applications{% endblock %}
+
+{% block content %}
+    {% include "components/worker_navbar.html" %}
+
+    <div class="container mt-5 pt-5">
         <h2>Pending Applications</h2>
-        <table>
-            <tr>
-                <th>Job Title</th>
-                <th>Description</th>
-                <th>Wage</th>
-                <th>Location</th>
-            </tr>
-            {% for job in pending_jobs %}
-            <tr>
-                <td>{{ job['title'] }}</td>
-                <td>{{ job['description'] }}</td>
-                <td>{{ job['wage'] }}</td>
-                <td>{{ job['location'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        <br/>
+        {% if pending_jobs %}
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Wage</th>
+                        <th scope="col">Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in pending_jobs %}
+                        <tr>
+                            <td>{{ job['title'] }}</td>
+                            <td>{{ job['description'] }}</td>
+                            <td>{{ job['wage'] }}</td>
+                            <td>{{ job['location'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No pending applications.</p>
+            <br/> <br/> <br/> <br/> <br/> <br/> 
+        {% endif %}
     </div>
-</body>
-</html>
+<br/> <br/> <br/> 
+{% endblock %}

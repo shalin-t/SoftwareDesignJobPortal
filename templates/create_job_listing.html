@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Create Job Listing</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
-        <a href="#profile">Profile</a>
+{% extends 'base.html' %} {% block title %}Employer Dashboard{% endblock %}
+{% block content %}
 
-    </div>
+{% include "components/employer_navbar.html" %}
+<br/> 
+<a href="{{ url_for('app_routes.employer_dashboard') }}" class="mb-3 px-lg-5">
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
+</a>
     <div class="content">
         <h2>Create Job Listing</h2>
         <form method="post">
@@ -28,7 +24,6 @@
             <input type="submit" value="Create Job">
         </form>
         <br>
-        <a href="{{ url_for('app_routes.employer_dashboard') }}">Back to Dashboard</a>
-    </div>
-</body>
-</html>
+ </div>
+<br/> <br/> <br/> 
+{% endblock %}

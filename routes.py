@@ -11,6 +11,10 @@ def get_db_connection():
     return conn
 
 @app_routes.route('/')
+def home():
+    return render_template('homepage.html')
+
+@app_routes.route('/select_user_type')
 def select_user_type():
     return render_template('select_user_type.html')
 

@@ -1,49 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Employer Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
-        <a href="#profile">Profile</a>
+{% extends 'base.html' %} {% block title %}Employer Dashboard{% endblock %}
+{% block content %}
 
+{% include "components/employer_navbar.html" %}
+<br/>
+<div class="row">
+    <div class="col-md-6 text-md-left mb-3 px-lg-5">
+        <h3>Welcome, {{ username }}!</h3>
     </div>
-    <div class="content">
-
-        <h2>Employer Dashboard</h2>
-        <p>Welcome, {{username}}!</p>
-
-        <a class="button" href="{{ url_for('app_routes.create_job_listing') }}">Create Job Listing</a>
-        <h3>Your Job Listings</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Wage</th>
-                    <th>Location</th>
-                    <th>Pending Applicants</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for job in job_listings %}
-                <tr>
-                    <td>{{ job['title'] }}</td>
-                    <td>{{ job['description'] }}</td>
-                    <td>{{ job['wage'] }}</td>
-                    <td>{{ job['location'] }}</td>
-                    <td>
-                        <a href="{{ url_for('app_routes.pending_applicants', job_id=job['id']) }}">
-                            View Applicants
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-
+    <div class="col-md-6 text-md-right px-4">
+        <a class="mb-3" href="{{ url_for('app_routes.create_job_listing') }}"><b>+ <u>Create Job Listing</u></b></a>
     </div>
-</body>
-</html>
+</div>
+    <div class="container">
+        
+
+        <h3 class="mt-2">Your Job Listings</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Wage</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Pending Applicants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in job_listings %}
+                    <tr>
+                        <td>{{ job['title'] }}</td>
+                        <td>{{ job['description'] }}</td>
+                        <td>{{ job['wage'] }}</td>
+                        <td>{{ job['location'] }}</td>
+                        <td>
+                            <a href="{{ url_for('app_routes.pending_applicants', job_id=job['id']) }}" class="btn btn-primary">
+                                View Applicants
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<br/> <br/> <br/> 
+{% endblock %}

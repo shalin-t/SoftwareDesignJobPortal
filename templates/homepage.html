@@ -1,0 +1,107 @@
+{% extends 'base.html' %} 
+{% block title %}Homepage{% endblock %} 
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card border-0">
+        <div class="card-body">
+          <h1 class="heading mt-5 text-center wow fadeIn" data-wow-delay="0.5s">Where Opportunities Await, Instant Gigs, Endless Possibilities!</h1>
+          <div class="d-flex justify-content-center px-5"></div>
+          <div class="row mt-4 g-1 px-4 mb-2">
+            <div class="col-md-2">
+              <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <img src="https://i.imgur.com/Mb8kaPV.png" width="50" />
+                <div class="text-center mg-text">
+                  <span class="mg-text">Admin Services</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <img src="https://i.imgur.com/ueLEPGq.png" width="50" />
+                <div class="text-center mg-text">
+                  <span class="mg-text">Financial Services</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <img src="https://i.imgur.com/tmqv0Eq.png" width="50" />
+                <div class="text-center mg-text">
+                  <span class="mg-text">Delivery Services</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <img src="https://i.imgur.com/D0Sm15i.png" width="50" />
+                <div class="text-center mg-text">
+                  <span class="mg-text">Technical Support</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <img src="https://i.imgur.com/Z7BJ8Po.png" width="50" />
+                <div class="text-center mg-text">
+                  <span class="mg-text">Healthcare Support</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <img src="https://i.imgur.com/YLsQrn3.png" width="50" />
+                <div class="text-center mg-text">
+                  <span class="mg-text">Education Services</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0">
+        <div class="card-body">
+          <h1 class="heading mt-5 text-center wow fadeIn" data-wow-delay="0.5s">Explore endless possibilities! Click here to begin your journey</h1>
+          <p class="card-text"></p>
+          <div class="text-center">
+            <a class="button" href="{{ url_for('app_routes.select_user_type') }}">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-xl py-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row g-0 about-bg rounded overflow-hidden">
+          <div class="col-6 text-start">
+            <img class="img-fluid w-100" src="./static/img/about-1.jpg">
+          </div>
+          <div class="col-6 text-start">
+            <img class="img-fluid" src="./static/img/about-2.jpg" style="width: 85%; margin-top: 15%;">
+          </div>
+          <div class="col-6 text-end">
+            <img class="img-fluid" src="./static/img/about-3.jpg" style="width: 85%;">
+          </div>
+          <div class="col-6 text-end">
+            <img class="img-fluid w-100" src="./static/img/about-4.jpg">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+        <h1 class="mb-4 ">Your Gateway To Unlocking Effortless Gig Opportunities</h1>
+        <p class="mb-4"><i class="fa fa-check text-primary me-3"></i>Discover hourly gig opportunities tailored to suit your lifestyle. Say goodbye to lengthy interviews. Explore nearby job listings, respond to a few queries, and secure the job opportunity hassle-free.</p>
+        <p><i class="fa fa-check text-primary me-3"></i>Work according to your preferences, get compensated for your efforts, and manage it all seamlessly within a single, user-friendly application.</p>
+        <p><i class="fa fa-check text-primary me-3"></i>Accessing our platform empowers you to swiftly and reliably address your staffing demands, whether for short-term projects, transitioning roles, or immediate on-demand workforce requirements.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

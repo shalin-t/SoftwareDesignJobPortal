@@ -1,16 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Select User Type</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h2 class="center">Select User Type</h2>
-        <div class="center">
-            <a class="button" href="{{ url_for('app_routes.login', type='worker') }}">Worker</a>
-            <a class="button" href="{{ url_for('app_routes.login', type='employer') }}">Employer</a>
+{% extends 'base.html' %} 
+
+{% block title %}Select User{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Select User Type</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Worker</h5>
+          <p class="card-text">Are you looking for job opportunities? Click below to login as a Worker.</p>
+          <a href="{{ url_for('app_routes.login', type='worker') }}" class="button">Login as Worker</a>
         </div>
+      </div>
     </div>
-</body>
-</html>
+    <div class="col-md-5">
+      <div class="card my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Employer</h5>
+          <p class="card-text">Are you looking to hire? Click below to login as an Employer.</p>
+          <a href="{{ url_for('app_routes.login', type='employer') }}" class="button">Login as Employer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+ <div class="center my-5">
+    <h2 class="text-center mb-4">
+      Don't miss out on great opportunities! If you don't have an account yet, create one today and start your journey with us!
+    </h2>
+    <a href="{{ url_for('app_routes.create_account') }}" class="secondary-button">Create Account</a>    
+  </div>
+</div>
+{% endblock %}

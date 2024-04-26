@@ -1,19 +1,11 @@
-<!-- pending_applicants.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Pending Applicants</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="{{ url_for('app_routes.employer_dashboard') }}">Employer Dashboard</a>
-        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
-    </div>
+{% extends 'base.html' %} {% block title %}Pending Applicants{% endblock %}
+{% block content %}
 
+{% include "components/employer_navbar.html" %}
+<br/>
     <div class="content">
         <h2>Pending Applicants for {{ job['title'] }}</h2>
-
+        {% if pending_applicants %}
         <table>
             <tr>
                 <th>User ID</th>
@@ -28,6 +20,11 @@
             </tr>
             {% endfor %}
         </table>
+
+        {% else %}
+            <p>No pending applicants.</p>
+            <br/> <br/> <br/> <br/> <br/> <br/>  
+        {% endif %}
     </div>
-</body>
-</html>
+<br/> <br/> <br/> 
+{% endblock %}

@@ -1,0 +1,53 @@
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary top-10">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav right">
+                <li class="nav-item">
+                    <a class="nav-link text-white-50" id="dashboard" href="{{ url_for('app_routes.employer_dashboard') }}">Employer Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white-50" id="pending" href="{{ url_for('app_routes.create_job_listing') }}">Create Job Listing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white-50" id="profile" href="Profile">Profile</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav left">
+            <li class="nav-item left">
+                <a class="nav-link text-white-50" id="logout" href="{{ url_for('app_routes.logout') }}">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const activeLinkId = localStorage.getItem('activeLinkId');
+            if (activeLinkId) {
+                const activeLink = document.getElementById(activeLinkId);
+                if (activeLink) {
+                    activeLink.classList.remove('text-white-50');
+                    activeLink.classList.add('text-white');
+                }
+            }
+
+            document.querySelectorAll('.nav-link').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('text-white');
+                        link.classList.add('text-white-50');
+                    });
+                    item.classList.remove('text-white-50');
+                    item.classList.add('text-white');
+
+                    // Store the ID of the active link in local storage
+                    localStorage.setItem('activeLinkId', item.id);
+                });
+            });
+        });
+    </script>
+
+

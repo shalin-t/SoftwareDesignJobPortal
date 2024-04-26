@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Job Application</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
-        <a href="#profile">Profile</a>
-        <a href="{{ url_for('app_routes.pending_applications') }}">Pending Applications</a>
-        <a href="{{ url_for('app_routes.worker_dashboard') }}">Dashboard</a>
-    </div>
+{% extends 'base.html' %} {% block title %}Worker Dashboard{% endblock %}
+<!-- style="padding-left: 100px;" -->
+{% block content %}
+<br/> 
+<a href="{{ url_for('app_routes.worker_dashboard') }}" class="mb-3 px-lg-5">
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
+</a>
     <div class="content">
         <h2>Apply for {{ job['title'] }}</h2>
         <p>Description: {{ job['description'] }}</p>
@@ -28,5 +22,5 @@
             <input type="submit" value="Submit Application">
         </form>
     </div>
-</body>
-</html>
+<br/> <br/> <br/> 
+{% endblock %}

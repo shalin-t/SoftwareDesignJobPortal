@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Worker Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="{{ url_for('app_routes.logout') }}">Logout</a>
-        <a href="#profile">Profile</a>
-        <a href="{{ url_for('app_routes.pending_applications') }}">Pending Applications</a>
-    </div>
-    <div class="content">
-        <h2>Worker Dashboard</h2>
-        <table>
-            <tr>
-                <th>Job Title</th>
-                <th>Description</th>
-                <th>Wage</th>
-                <th>Location</th>
-                <th>Action</th>
-            </tr>
-            {% for job in job_listings %}
-            <tr>
-                <td>{{ job['title'] }}</td>
-                <td>{{ job['description'] }}</td>
-                <td>{{ job['wage'] }}</td>
-                <td>{{ job['location'] }}</td>
-                <td><a href="{{ url_for('app_routes.job_apply', job_id=job['id']) }}"><button>Apply</button></a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-</body>
-</html>
+{% extends 'base.html' %} {% block title %}Worker Dashboard{% endblock %}
+{% block content %}
 
+{% include "components/worker_navbar.html" %}
+
+<div class="container mt-5 pt-5">
+  <h2>Worker Dashboard</h2>
+  <br/>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Job Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Wage</th>
+        <th scope="col">Location</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in job_listings %}
+      <tr>
+        <td>{{ job['title'] }}</td>
+        <td>{{ job['description'] }}</td>
+        <td>{{ job['wage'] }}</td>
+        <td>{{ job['location'] }}</td>
+        <td>
+          <a href="{{ url_for('app_routes.job_apply', job_id=job['id']) }}"><button class="btn btn-primary">Apply</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<br/> <br/> <br/> 
+{% endblock %}

@@ -13,6 +13,12 @@ body {
 p{
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: solid;
+    /* font-size: 36px; */
+}
+
+p-secondary{
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: solid;
     font-size: 36px;
 }
 
@@ -84,7 +90,8 @@ input {
 
 /* Styling for the submit button */
 input[type="submit"] {
-    background-color: #4CAF50; /* Green */
+    background-color: #007bff;
+    border: 2px solid #007bff;
     color: white;
     border: none;
     padding: 10px;
@@ -94,7 +101,7 @@ input[type="submit"] {
 
 /* Hover effect for the submit button */
 input[type="submit"]:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #007bff; /* Darker green on hover */
 }
 
 
@@ -132,22 +139,109 @@ th {
     margin-bottom: 10px;
 }
 
+
 /* Button styles */
-.button {
+
+/* secondary button */
+
+  .secondary-button {
+    color: #007bff;
+    background-color: transparent;
+    border: 2px solid #007bff;
     display: inline-block;
-    padding: 20px 40px;
+    padding: 20px 30px;
     margin: 20px;
     text-decoration: none;
-    font-size: 24px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.secondary-button:focus,
+.secondary-button.focus {
+    color: #fff;
+    background-color: #007bff;
+}
+.secondary-button:hover {
+    color: #fff;
+    background-color: #0069d9;
+}
+.secondary-button:active,
+.secondary-button.active,
+.open > .dropdown-toggle.secondary-button {
+    color: #fff;
+    background-color: #0069d9;
+}
+
+
+.button {
+    color: #fff;
+    background-color: #007bff;
+    border: 2px solid #007bff;
+    display: inline-block;
+    padding: 20px 30px;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 20px;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
-/* Button hover effect */
-.button:hover {
-    background-color: #45a049;
+.button:focus,
+.button.focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
 }
+.button:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+.button:active,
+.button.active,
+.open > .dropdown-toggle.button {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.dropdown {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%; 
+    box-sizing: border-box;
+    margin-bottom: 10px; 
+}
+
+
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    font-size: 15px;
+    text-align: left; /* Align all text to the left */
+    display: flex;
+    flex-direction: column;
+    min-height: 30vh;
+  }
+  .footer a {
+    color: #fff;
+  }
+  .footer .container-fluid {
+    padding-left: 20px; /* Remove left padding to reduce footer size */
+    padding-right: 20px; /* Remove right padding to reduce footer size */
+  }
+  .footer input[type="email"] {
+    width: 70%; /* Adjust width as needed */
+    margin-right: 10px; /* Add margin between input and button */
+  }
+  @media (max-width: 576px) {
+    .footer input[type="email"] {
+      width: 100%; /* Set full width on smaller devices */
+      margin-right: 0; /* Remove margin on smaller devices */
+      margin-bottom: 10px; /* Add margin below input on smaller devices */
+    }
+  }
