@@ -3,18 +3,13 @@
 
 {% include "components/employer_navbar.html" %}
 <br/>
-<div class="row">
-    <div class="col-md-6 text-md-left mb-3 px-lg-5">
-        <h3>Welcome, {{ username }}!</h3>
+    <div class="row">
+        <div class="ms-auto text-md-left px-4 m-2">
+            <a class="mb-3" href="{{ url_for('app_routes.create_job_listing') }}"><b>+ <u>Create New Job</u></b></a>
+        </div>
     </div>
-    <div class="col-md-6 text-md-right px-4">
-        <a class="mb-3" href="{{ url_for('app_routes.create_job_listing') }}"><b>+ <u>Create Job Listing</u></b></a>
-    </div>
-</div>
     <div class="container">
-        
-
-        <h3 class="mt-2">Your Job Listings</h3>
+        <h3 class="mt-1">Your Job Listings</h3>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-dark">

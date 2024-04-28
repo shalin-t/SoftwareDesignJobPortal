@@ -19,6 +19,12 @@
           <a href="testimonials.html" class="nav-link">Testimonials</a>
         </li>
       </ul>
+      
+      {% if 'username' in session %}
+        <div class="ms-auto">
+          <span class="text-black me-3">Welcome, {{ session['username'] }}!</span>
+        </div>
+      {% endif %}
     </div>
   </div>
 </nav>
