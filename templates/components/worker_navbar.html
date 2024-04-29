@@ -12,7 +12,10 @@
                     <a class="nav-link text-white-50" id="pending" href="{{ url_for('app_routes.pending_applications') }}">Pending Applications</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white-50" id="profile" href="#">Profile</a>
+                    <a class="nav-link text-white-50" id="search" href="{{ url_for('app_routes.search_jobs') }}">Search Jobs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white-50" id="profile" href="{{ url_for('app_routes.profile') }}">Profile</a>
                 </li>
             </ul>
         </div>

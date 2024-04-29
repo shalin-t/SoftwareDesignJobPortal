@@ -40,13 +40,14 @@
       <div class="col-lg-4 col-md-4 col-sm-12">
         <h5 class="text-white mb-1">Newsletter</h5>
         <p class="text-white mt-3">Stay updated with the latest job opportunities by subscribing to our newsletter.</p>
-        <form class="form-inline">
+        <form class="form-inline" onsubmit="return displayMessage()">
           <div class="form-group g-2">
-            <input type="email" class="form-control py-2 ps-10 m-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" style="width: 100%">
-          <button type="submit" class="btn btn-primary py-2 ps-10 m-1">Subscribe</button>
+            <input type="email" class="form-control py-2 ps-10 m-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" style="width: 50%">
+            <button type="submit" class="btn btn-primary py-2 ps-10 m-1">Subscribe</button>
           </div>
-          
+          <p id="message" style="display: none;">Your email has been added to the subscriber list</p>
         </form>
+
         </div>
      </div>
   </div>
@@ -71,5 +72,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script>
+  function displayMessage() {
+    document.getElementById("message").style.display = "block";
+    return false; // Prevents the form from submitting
+  }
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for
 #from app import workers, employers, job_listings, job_applications
 import sqlite3
+from flask import jsonify
 
 app_routes = Blueprint("app_routes", __name__)
 
@@ -9,6 +10,11 @@ def get_db_connection():
     conn = sqlite3.connect('app.db')
     conn.row_factory = sqlite3.Row
     return conn
+
+@app_routes.route('/clear_session')
+def clear_session():
+    session.clear()
+    return jsonify({'message': 'Session cleared'})
 
 @app_routes.route('/')
 def home():
@@ -272,6 +278,43 @@ def pending_applicants(job_id):
         pending_applicants=pending_applicants
     )
 '''
+@app_routes.route('/search_jobs', methods=['GET'])
+def search_jobs():
+    if 'username' in session:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        keyword = request.args.get('keyword')
+        if keyword:
+            cursor.execute("SELECT * FROM job_listings WHERE title LIKE ? OR description LIKE ?", ('%' + keyword + '%', '%' + keyword + '%'))
+            job_listings = cursor.fetchall()
+            conn.close()
+            return render_template('search_jobs.html', job_listings=job_listings, keyword=keyword)
+        else:
+            conn.close()
+            return render_template('search_jobs.html', no_results=True)
+    return redirect(url_for('app_routes.select_user_type'))
+
+@app_routes.route('/profile')
+def profile():
+    if 'username' in session:
+        username = session['username']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT username, user_type FROM users WHERE username = ?", (username,))
+        user = cursor.fetchone()
+        conn.close()
+        
+        if user:
+            user_type = user['user_type']
+            if user_type == 'worker':
+                return redirect(url_for('app_routes.worker_dashboard'))
+            elif user_type == 'employer':
+                return redirect(url_for('app_routes.employer_dashboard'))
+        else:
+            return render_template('login.html', error_message="Invalid username/password")
+    else:
+        return redirect(url_for('app_routes.select_user_type'))
+
 @app_routes.route('/logout')
 def logout():
     session.pop('username', None)
