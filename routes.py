@@ -11,10 +11,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-@app_routes.route('/clear_session')
-def clear_session():
-    session.clear()
-    return jsonify({'message': 'Session cleared'})
+# @app_routes.route('/clear_session')
+# def clear_session():
+#     session.clear()
+#     return jsonify({'message': 'Session cleared'})
 
 @app_routes.route('/')
 def home():
@@ -29,14 +29,15 @@ def create_account():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user_type = request.form['user_type']  # Assuming you have a user type field in your registration form
+        user_type = request.form['user_type']  
+        skills = request.form['skills']  
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
-            cursor.execute("INSERT INTO users (username, password, user_type) VALUES (?, ?, ?)", (username, password, user_type))
+            cursor.execute("INSERT INTO users (username, password, user_type, skills) VALUES (?, ?, ?, ?)", (username, password, user_type, skills))
             conn.commit()
             conn.close()
-            return redirect(url_for('app_routes.select_user_type'))  # Redirect to select_user_type route
+            return redirect(url_for('app_routes.select_user_type')) 
         except sqlite3.IntegrityError:
             error_message = "Username already exists. Please choose a different username."
             return render_template('create_account.html', error_message=error_message)
@@ -300,20 +301,17 @@ def profile():
         username = session['username']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT username, user_type FROM users WHERE username = ?", (username,))
+        cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
         user = cursor.fetchone()
         conn.close()
         
         if user:
-            user_type = user['user_type']
-            if user_type == 'worker':
-                return redirect(url_for('app_routes.worker_dashboard'))
-            elif user_type == 'employer':
-                return redirect(url_for('app_routes.employer_dashboard'))
+            return render_template('profile.html', user=user)
         else:
             return render_template('login.html', error_message="Invalid username/password")
     else:
         return redirect(url_for('app_routes.select_user_type'))
+
 
 @app_routes.route('/logout')
 def logout():

@@ -10,11 +10,13 @@ app.secret_key = "secretkey"
 conn = sqlite3.connect('app.db')
 cursor = conn.cursor()
 # Create users table
+
 cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY,
                     username TEXT UNIQUE,
                     password TEXT,
-                    user_type TEXT
+                    user_type TEXT,
+                    skills TEXT
                 )''')
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS job_listings (

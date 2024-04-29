@@ -1,7 +1,6 @@
-{% extends 'base.html' %} 
-{% block title %}Create Account{% endblock %} 
+{% extends 'base.html' %}
+{% block title %}Create Account{% endblock %}
 {% block content %}
-
 <div class="container mt-5">
   <div class="card mx-auto my-5" style="max-width: 500px;">
     <div class="card-header bg-primary text-white text-center">
@@ -23,10 +22,15 @@
         <div class="form-group">
           <label for="user_type">User Type:</label>
           <br />
-          <select class="dropdown" id="user_type" name="user_type" required>
+          <select class="dropdown" id="user_type" name="user_type" required onchange="toggleSkillsField()">
+            <option value="" disabled selected>Select User Type</option>
             <option value="worker">Worker</option>
             <option value="employer">Employer</option>
           </select>
+        </div>
+        <div class="form-group" id="skills_field" style="display:none;">
+          <label for="skills">Skills:</label>
+          <input type="text" class="form-control" id="skills" name="skills">
         </div>
         <button type="submit" class="btn btn-primary center" style="width: 150px">Create Account</button>
       </form>
@@ -36,5 +40,15 @@
     </div>
   </div>
 </div>
-
+<script>
+  function toggleSkillsField() {
+    var userType = document.getElementById("user_type").value;
+    var skillsField = document.getElementById("skills_field");
+    if (userType === "worker") {
+      skillsField.style.display = "block";
+    } else {
+      skillsField.style.display = "none";
+    }
+  }
+</script>
 {% endblock content %}
