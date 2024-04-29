@@ -11,11 +11,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# @app_routes.route('/clear_session')
-# def clear_session():
-#     session.clear()
-#     return jsonify({'message': 'Session cleared'})
-
 @app_routes.route('/')
 def home():
     return render_template('homepage.html')
@@ -312,9 +307,15 @@ def profile():
     else:
         return redirect(url_for('app_routes.select_user_type'))
 
+@app_routes.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+@app_routes.route('/under_construction')
+def under_construction():
+    return render_template('components/under_construction.html')
 
 @app_routes.route('/logout')
 def logout():
     session.pop('username', None)
-    return redirect(url_for('app_routes.select_user_type'))
-
+    return redirect(url_for('app_routes.home'))
