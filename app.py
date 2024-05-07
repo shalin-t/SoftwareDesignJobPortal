@@ -60,6 +60,8 @@ job_applications = [
     {'worker': 'worker1', 'job_id': 3},
 ]'''
 
+app.register_blueprint(app_routes)
+
 if __name__ == '__main__':
-    app.register_blueprint(app_routes)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+   
